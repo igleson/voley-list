@@ -1,15 +1,23 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 
+
+
+
+
+
+
 WORKDIR /app
 COPY ./src ./
 
+
+RUN ls
 RUN dotnet restore ./VolleyList.sln
 
 RUN dotnet build VolleyList.sln -c Release
         
 WORKDIR /app/VolleyList.WebApi
 
-RUN dotnet publish -c Release -o /app/out /p:Version=$VERSION  
+RUN dotnet publish -c Release -o /app/out 
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
