@@ -1,4 +1,5 @@
 using Dapper;
+using VolleyList.WebApi;
 using VolleyList.WebApi.Config;
 using VolleyList.WebApi.Controllers;
 using VolleyList.WebApi.Database;
@@ -25,6 +26,8 @@ builder.Services.AddSingleton<IDbConnectionProvider, SupabaseConnectionProvider>
 builder.Services.AddSingleton<DatabaseContext>();
 
 builder.Services.AddSingleton<Storage>();
+
+builder.Services.AddSingleton<ListingService>();
 
 var app = builder.Build();
 

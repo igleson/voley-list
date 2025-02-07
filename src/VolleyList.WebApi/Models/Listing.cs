@@ -41,3 +41,14 @@ public enum ParticipantType
     Main = 0,
     Invitee = 1
 }
+
+public record ComputedListing
+{
+    public Listing Listing { get; init; }
+
+    public IEnumerable<ListingParticipant> MainList { get; init; } = [];
+
+    public IEnumerable<ListingParticipant> ReservesList { get; init; } = [];
+
+    public IEnumerable<ListingParticipant> PayingParticipants { get; init; } = [];
+}

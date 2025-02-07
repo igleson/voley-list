@@ -24,8 +24,7 @@ public class Storage(DatabaseContext database)
         return listing;
     }
 
-    public async Task<OneOf<ListingEvent, ParticipantAlreadyInserted, ParticipantAlreadyRemoved, NotFound>>
-        AddListingEventAsync(
+    public async Task<OneOf<ListingEvent, ParticipantAlreadyRemoved, ParticipantAlreadyInserted, NotFound>> AddListingEventAsync(
             ListingEvent ev, CancellationToken token)
     {
         var currentEventType = await database.WithConnectionAsync(conn =>
