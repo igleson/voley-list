@@ -1,9 +1,30 @@
-var builder = WebApplication.CreateBuilder(args);
+using Dapper;
+using VolleyList.WebApi.Config;
+using VolleyList.WebApi.Controllers;
+using VolleyList.WebApi.Database;
+using VolleyList.WebApi.Models;
 
+DefaultTypeMap.MatchNamesWithUnderscores = true;
+
+//load .env file
+DotEnv.Load(Path.Combine(Directory.GetCurrentDirectory(), ".env"));
+
+var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+#if DEBUG
+builder.Services.AddSingleton<IDbConnectionProvider, SqliteConnectionProvider>();
+#else
+builder.Services.AddSingleton<IDbConnectionProvider, SupabaseConnectionProvider>();
+#endif
+
+
+builder.Services.AddSingleton<DatabaseContext>();
+
+builder.Services.AddSingleton<Storage>();
 
 var app = builder.Build();
 
@@ -11,31 +32,17 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.MapPost("/listing", ListingController.CreateListingAsync)
+    .Accepts<CreateListingRequest>(contentType: "application/json")
+    .Produces<Listing>(contentType: "application/json");
 
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
+app.MapPost("/listing/{listingId}/add", ListingController.AddParticipantAsync)
+    .Accepts<AddParticipantRequest>(contentType: "application/json")
+    .Produces<ListingEvent>(contentType: "application/json");
 
+app.MapDelete("/listing/{listingId}/remove/{participantId}", ListingController.RemoveParticipantAsync);
+
+app.MapGet("/listing/{listingId}", ListingController.ReadListingAsync)
+    .Produces<Listing>(contentType: "application/json");
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
