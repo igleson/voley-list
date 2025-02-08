@@ -1,10 +1,10 @@
 using System.Data.SQLite;
 using Dapper;
-using VolleyList.WebApi.Models;
 using OneOf;
 using OneOf.Types;
+using VolleyList.Models;
 
-namespace VolleyList.WebApi.Database;
+namespace VolleyList.Database;
 
 public class Storage(DatabaseContext database)
 {

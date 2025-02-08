@@ -1,4 +1,4 @@
-namespace VolleyList.WebApi.Models;
+namespace VolleyList.Models;
 
 public readonly record struct Listing
 {

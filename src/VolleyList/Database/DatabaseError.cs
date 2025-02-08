@@ -1,4 +1,4 @@
-namespace VolleyList.WebApi.Database;
+namespace VolleyList.Database;
 
 public record struct ParticipantAlreadyInserted
 {

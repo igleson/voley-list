@@ -1,9 +1,9 @@
 using OneOf;
 using OneOf.Types;
-using VolleyList.WebApi.Database;
-using VolleyList.WebApi.Models;
+using VolleyList.Database;
+using VolleyList.Models;
 
-namespace VolleyList.WebApi;
+namespace VolleyList.Services;
 
 public class ListingService(Storage storage)
 {

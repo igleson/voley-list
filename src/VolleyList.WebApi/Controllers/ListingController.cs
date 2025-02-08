@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using VolleyList.WebApi.Database;
-using VolleyList.WebApi.Models;
+using VolleyList.Services;
 
 namespace VolleyList.WebApi.Controllers;
 

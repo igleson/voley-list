@@ -1,9 +1,9 @@
 using Dapper;
-using VolleyList.WebApi;
+using VolleyList.Database;
+using VolleyList.Models;
+using VolleyList.Services;
 using VolleyList.WebApi.Config;
 using VolleyList.WebApi.Controllers;
-using VolleyList.WebApi.Database;
-using VolleyList.WebApi.Models;
 
 DefaultTypeMap.MatchNamesWithUnderscores = true;
 

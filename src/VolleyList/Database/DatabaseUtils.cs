@@ -3,7 +3,7 @@ using System.Data.Common;
 using System.Data.SQLite;
 using Npgsql;
 
-namespace VolleyList.WebApi.Database;
+namespace VolleyList.Database;
 
 public interface IDbConnectionProvider
 {
@@ -29,9 +29,10 @@ public class SupabaseConnectionProvider : IDbConnectionProvider
 
 public class SqliteConnectionProvider : IDbConnectionProvider
 {
+    private readonly string _sqliteFilePath = Environment.GetEnvironmentVariable("SQLITE_PATH")!;
     public DbConnection GetDbConnection()
     {
-        return new SQLiteConnection("Data Source=Database/data.sqlite");
+        return new SQLiteConnection($"Data Source={_sqliteFilePath}");
     }
 }
 
