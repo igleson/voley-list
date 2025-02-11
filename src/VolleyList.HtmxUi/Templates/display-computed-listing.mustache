@@ -1,0 +1,34 @@
+<div id="computed-list">
+    <h1>Lista</h1>
+    <p><strong>Id:</strong> {{Listing.Id}}</p>
+    <p><strong>Nome:</strong> {{Listing.Name}}</p>
+    <p><strong>Limite de jogadores:</strong> {{Listing.MaxSize}}</p>
+    <p><strong>Data limite para remover o nome e não pagar:</strong> {{Listing.LimitDateToRemoveNameAndNotPay}}</p>
+
+    {{> add-player Listing }}
+
+    <h2>Lista principal</h2>
+    <ul>
+        {{#each MainList}}
+            <li>{{Name}} {{#if IsInvitee}} - Convidado{{/if}}
+                <button hx-delete="/listings/{{@root.Listing.Id}}/players/{{Name}}" hx-swap="outerHTML" hx-target="#computed-list" hx-trigger="click">Remover</button>
+            </li>
+        {{/each}}
+    </ul>
+
+    <h2>Lista de reservar</h2>
+    <ul>
+        {{#each ReservesList}}
+            <li>{{Name}} {{#if IsInvitee}} - Convidado{{/if}}
+                <button hx-delete="/listings/{{@root.Listing.Id}}/players/{{Name}}" hx-swap="outerHTML" hx-target="#computed-list" hx-trigger="click">Remover</button>
+            </li>
+        {{/each}}
+    </ul>
+
+    <h2>Pagantes</h2>
+    <ul>
+        {{#each PayingParticipants}}
+            <li>{{this.Name}} ({{#if this.IsInvitee}}Convidado{{/if}})</li>
+        {{/each}}
+    </ul>
+</div>

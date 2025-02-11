@@ -1,0 +1,15 @@
+<div id="create-list-form">
+    <h1>Criar nova lista</h1>
+    <form hx-post="/listings" hx-swap="outerHTML" hx-target="#create-list-form">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="Name" required><br><br>
+    
+        <label for="maxSize">Limite de jogadores:</label>
+        <input type="number" id="maxSize" name="MaxSize"><br><br>
+    
+        <label for="limitDateToRemoveNameAndNotPay">Data limite para remover o nome e não pagar:</label>
+        <input type="datetime-local" id="limitDateToRemoveNameAndNotPay" name="LimitDateToRemoveNameAndNotPay"><br><br>
+    
+        <input type="submit" value="Criar lista">
+    </form>
+</div>
