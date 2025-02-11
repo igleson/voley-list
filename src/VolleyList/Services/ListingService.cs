@@ -7,7 +7,7 @@ namespace VolleyList.Services;
 
 public class ListingService(Storage storage)
 {
-    public Task<CreateListingResult> CreateListingAsync(CreateListingRequest request, CancellationToken token)
+    public Task<CreateListingResult> CreateListingAsync(Listing request, CancellationToken token)
     {
         return storage.CreateListingAsync(request, token);
     }
