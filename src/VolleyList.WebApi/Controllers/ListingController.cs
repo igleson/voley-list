@@ -11,7 +11,10 @@ public static class ListingController
 
         return response.Match(
             Results.Ok,
-            exists => Results.BadRequest("listing already exists"));
+            exists => Results.BadRequest("listing already exists"),
+            empty => Results.BadRequest("Name cant be empty"),
+            past => Results.BadRequest("Limit date cant be in the past"),
+            sizeLowerThanOne => Results.BadRequest("Size date cant be lower than one"));
     }
 
     public static async Task<IResult> AddParticipantAsync(ListingService service, [FromRoute] string listingId, [FromBody] AddParticipantRequest request,

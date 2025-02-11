@@ -1,3 +1,5 @@
+global using CreateListingResult = OneOf.OneOf<VolleyList.Models.Listing, VolleyList.Database.ListingAlreadyExists, VolleyList.Database.ListingNameCantBeEmpty,
+    VolleyList.Database.LimitDateToRemoveNameAndNotPayCantBeInThePast, VolleyList.Database.ListingSizeHasToBeHigherThanOne>;
 using System.Data.SQLite;
 using Dapper;
 using OneOf;
@@ -8,12 +10,27 @@ namespace VolleyList.Database;
 
 public class Storage(DatabaseContext database)
 {
-    public async Task<OneOf<Listing, ListingAlreadyExists>> CreateListingAsync(Listing listing, CancellationToken token)
+    public async Task<CreateListingResult> CreateListingAsync(Listing listing, CancellationToken token)
     {
         try
         {
+            if (listing.MaxSize is < 1)
+            {
+                return ListingSizeHasToBeHigherThanOne.Instance;
+            }
+
+            if (string.IsNullOrEmpty(listing.Name))
+            {
+                return ListingNameCantBeEmpty.Instance;
+            }
+
+            if (listing.LimitDateToRemoveNameAndNotPay < DateTime.UtcNow)
+            {
+                return LimitDateToRemoveNameAndNotPayCantBeInThePast.Instance;
+            }
+
             await database.WithConnectionAsync(conn => conn.ExecuteAsync(new CommandDefinition(
-                "INSERT INTO listing (id, name, max_size, limit_date_for_invitees) VALUES (@Id, @Name, @MaxSize, @LimitDateForInvitees)",
+                "INSERT INTO listing (id, name, max_size, limit_date_to_remove_name_And_not_pay) VALUES (@Id, @Name, @MaxSize, @LimitDateToRemoveNameAndNotPay)",
                 listing, cancellationToken: token)), token);
         }
         catch (SQLiteException e) when (e.ResultCode is SQLiteErrorCode.Constraint)
@@ -25,7 +42,7 @@ public class Storage(DatabaseContext database)
     }
 
     public async Task<OneOf<ListingEvent, ParticipantAlreadyRemoved, ParticipantAlreadyInserted, NotFound>> AddListingEventAsync(
-            ListingEvent ev, CancellationToken token)
+        ListingEvent ev, CancellationToken token)
     {
         var currentEventType = await database.WithConnectionAsync(conn =>
             conn.QueryFirstOrDefaultAsync<ListingEventType?>(

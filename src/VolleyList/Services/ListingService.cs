@@ -7,7 +7,7 @@ namespace VolleyList.Services;
 
 public class ListingService(Storage storage)
 {
-    public Task<OneOf<Listing, ListingAlreadyExists>> CreateListingAsync(CreateListingRequest request, CancellationToken token)
+    public Task<CreateListingResult> CreateListingAsync(CreateListingRequest request, CancellationToken token)
     {
         return storage.CreateListingAsync(request, token);
     }
@@ -49,7 +49,7 @@ public class ListingService(Storage storage)
         var events = (await storage.ReadListingEventsAsync(listingId, token))
             .OrderBy(@event => @event.Date)
             .ToList();
-        
+
         return CalculateComputedListing(listing, events);
     }
 
@@ -176,13 +176,13 @@ public class ListingService(Storage storage)
 
 public readonly record struct AddParticipantRequest(string Name, bool IsInvitee);
 
-public readonly record struct CreateListingRequest(string Name, int? MaxSize, DateTime Date)
+public readonly record struct CreateListingRequest(string Name, int? MaxSize, DateTime LimitDateToRemoveNameAndNotPay)
 {
     public static implicit operator Listing(CreateListingRequest request) => new()
     {
         Id = Guid.NewGuid().ToString(),
         Name = request.Name,
         MaxSize = request.MaxSize,
-        LimitDateToRemoveNameAndNotPay = request.Date
+        LimitDateToRemoveNameAndNotPay = request.LimitDateToRemoveNameAndNotPay
     };
 }
