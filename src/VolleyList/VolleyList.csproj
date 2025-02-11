@@ -11,8 +11,8 @@
         <None Update="Database\data.sqlite">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <AdditionalFiles Include=".env">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <AdditionalFiles Include=".env" >
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </AdditionalFiles>
     </ItemGroup>
 
