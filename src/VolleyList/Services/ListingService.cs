@@ -59,12 +59,12 @@ public class ListingService(Storage storage)
         var mainList = new List<ListingParticipant>(listing.MaxSize ?? events.Count);
         var reserveList = new List<ListingParticipant>(10);
 
-        var eventsBeforeLimitForInvitees = (listing.LimitDateForInvitees.HasValue
-            ? events.TakeWhile(@event => @event.Date < listing.LimitDateForInvitees)
+        var eventsBeforeLimitForInvitees = (listing.LimitDateToRemoveNameAndNotPay.HasValue
+            ? events.TakeWhile(@event => @event.Date < listing.LimitDateToRemoveNameAndNotPay)
             : events).ToList();
 
-        var eventsAfterLimitForInvitees = listing.LimitDateForInvitees.HasValue
-            ? events.SkipWhile(@event => @event.Date < listing.LimitDateForInvitees)
+        var eventsAfterLimitForInvitees = listing.LimitDateToRemoveNameAndNotPay.HasValue
+            ? events.SkipWhile(@event => @event.Date < listing.LimitDateToRemoveNameAndNotPay)
             : events;
 
         foreach (var ev in eventsBeforeLimitForInvitees)
@@ -135,7 +135,7 @@ public class ListingService(Storage storage)
 
         var payers = new HashSet<ListingParticipant>(mainList);
 
-        if (listing.LimitDateForInvitees.HasValue)
+        if (listing.LimitDateToRemoveNameAndNotPay.HasValue)
         {
             var amountOfPeoplePaying = listing.MaxSize ?? int.Max(mainList.Count, payingParticipantsUpToLimit.Count);
 
@@ -176,13 +176,13 @@ public class ListingService(Storage storage)
 
 public readonly record struct AddParticipantRequest(string Name, bool IsInvitee);
 
-public readonly record struct CreateListingRequest(string Name, int MaxSize, DateTime Date)
+public readonly record struct CreateListingRequest(string Name, int? MaxSize, DateTime Date)
 {
     public static implicit operator Listing(CreateListingRequest request) => new()
     {
         Id = Guid.NewGuid().ToString(),
         Name = request.Name,
         MaxSize = request.MaxSize,
-        LimitDateForInvitees = request.Date
+        LimitDateToRemoveNameAndNotPay = request.Date
     };
 }

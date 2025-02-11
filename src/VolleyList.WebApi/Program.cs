@@ -2,13 +2,9 @@ using Dapper;
 using VolleyList.Database;
 using VolleyList.Models;
 using VolleyList.Services;
-using VolleyList.WebApi.Config;
 using VolleyList.WebApi.Controllers;
 
 DefaultTypeMap.MatchNamesWithUnderscores = true;
-
-//load .env file
-DotEnv.Load(Path.Combine(Directory.GetCurrentDirectory(), ".env"));
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.

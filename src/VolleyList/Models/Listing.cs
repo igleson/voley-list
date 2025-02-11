@@ -8,7 +8,7 @@ public readonly record struct Listing
 
     public int? MaxSize { get; init; }
 
-    public DateTime? LimitDateForInvitees { get; init; }
+    public DateTime? LimitDateToRemoveNameAndNotPay { get; init; }
 }
 
 public readonly record struct ListingParticipant

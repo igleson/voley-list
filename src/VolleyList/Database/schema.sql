@@ -1,11 +1,13 @@
+
 CREATE TABLE listing
 (
     id                      TEXT,
     name                    TEXT,
     max_size                INT,
-    limit_date_for_invitees TEXT,
+    limit_date_to_remove_name_And_not_pay TEXT,
     PRIMARY KEY (id)
 );
+
 
 CREATE TABLE listing_events
 (

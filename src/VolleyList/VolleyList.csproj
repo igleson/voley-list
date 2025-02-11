@@ -4,19 +4,24 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <None Update="Database\data.sqlite">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <None Update="Database\data.sqlite">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <AdditionalFiles Include=".env">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Dapper" Version="2.1.66" />
-      <PackageReference Include="Npgsql" Version="9.0.2" />
-      <PackageReference Include="OneOf" Version="3.0.271" />
-      <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+        <PackageReference Include="Dapper" Version="2.1.66"/>
+        <PackageReference Include="DotEnv.DotNet" Version="0.0.5" OutputItemType="Analyzer"/>
+        <PackageReference Include="Npgsql" Version="9.0.2"/>
+        <PackageReference Include="OneOf" Version="3.0.271"/>
+        <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119"/>
     </ItemGroup>
 
 </Project>
