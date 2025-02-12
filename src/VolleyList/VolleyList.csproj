@@ -11,14 +11,14 @@
         <None Update="Database\data.sqlite">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <AdditionalFiles Include=".env" >
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <AdditionalFiles  Condition=" '$(Configuration)' == 'Debug'" Include=".env">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </AdditionalFiles>
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.1.66"/>
-        <PackageReference Include="DotEnv.DotNet" Version="0.0.6" OutputItemType="Analyzer"/>
+        <PackageReference Include="DotEnv.DotNet" Version="0.0.5" OutputItemType="Analyzer"/>
         <PackageReference Include="Npgsql" Version="9.0.2"/>
         <PackageReference Include="OneOf" Version="3.0.271"/>
         <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119"/>
