@@ -1,15 +1,19 @@
+using FluentValidation.Results;
 using OneOf;
 using OneOf.Types;
 using VolleyList.Database;
 using VolleyList.Models;
+using VolleyList.Validators;
 
 namespace VolleyList.Services;
 
-public class ListingService(Storage storage)
+public class ListingService(Storage storage, ListingValidator validator)
 {
-    public Task<CreateListingResult> CreateListingAsync(Listing request, CancellationToken token)
+    public async Task<OneOf<CreateListingResult, List<ValidationFailure>>> CreateListingAsync(Listing request, CancellationToken token)
     {
-        return storage.CreateListingAsync(request, token);
+        var validation = await validator.ValidateAsync(request, token);
+        if (!validation.IsValid) return validation.Errors;
+        return await storage.CreateListingAsync(request, token);
     }
 
     public Task<OneOf<ListingEvent, ParticipantAlreadyRemoved, ParticipantAlreadyInserted, NotFound>> AddParticipantAsync(string listingId,

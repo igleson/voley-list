@@ -1,8 +1,11 @@
+using System.Reflection;
 using Dapper;
+using FluentValidation;
 using HtmxUi;
 using HtmxUi.Controllers;
 using VolleyList.Database;
 using VolleyList.Services;
+using VolleyList.Validators;
 
 DefaultTypeMap.MatchNamesWithUnderscores = true;
 
@@ -14,6 +17,7 @@ builder.Services.AddSingleton<IDbConnectionProvider, SqliteConnectionProvider>()
 builder.Services.AddSingleton<IDbConnectionProvider, SupabaseConnectionProvider>();
 #endif
 
+builder.Services.AddSingleton<ListingValidator>();
 
 builder.Services.AddSingleton<DatabaseContext>();
 

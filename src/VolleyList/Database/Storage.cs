@@ -1,5 +1,4 @@
-global using CreateListingResult = OneOf.OneOf<VolleyList.Models.Listing, VolleyList.Database.ListingAlreadyExists, VolleyList.Database.ListingNameCantBeEmpty,
-    VolleyList.Database.LimitDateToRemoveNameAndNotPayCantBeInThePast, VolleyList.Database.ListingSizeHasToBeHigherThanOne>;
+global using CreateListingResult = OneOf.OneOf<VolleyList.Models.Listing, VolleyList.Database.ListingAlreadyExists>;
 using System.Data.SQLite;
 using Dapper;
 using OneOf;
@@ -14,21 +13,6 @@ public class Storage(DatabaseContext database)
     {
         try
         {
-            if (listing.MaxSize is < 1)
-            {
-                return ListingSizeHasToBeHigherThanOne.Instance;
-            }
-
-            if (string.IsNullOrEmpty(listing.Name))
-            {
-                return ListingNameCantBeEmpty.Instance;
-            }
-
-            if (listing.LimitDateToRemoveNameAndNotPay < DateTime.UtcNow)
-            {
-                return LimitDateToRemoveNameAndNotPayCantBeInThePast.Instance;
-            }
-
             await database.WithConnectionAsync(conn => conn.ExecuteAsync(new CommandDefinition(
                 "INSERT INTO listing (id, name, max_size, limit_date_to_remove_name_And_not_pay) VALUES (@Id, @Name, @MaxSize, @LimitDateToRemoveNameAndNotPay)",
                 listing, cancellationToken: token)), token);

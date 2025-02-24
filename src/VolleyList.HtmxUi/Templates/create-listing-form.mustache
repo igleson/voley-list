@@ -2,14 +2,17 @@
     <h1>Criar nova lista</h1>
     <form hx-post="/listings" hx-swap="outerHTML" hx-target="#create-list-form">
         <label for="name">Nome:</label>
-        <input type="text" id="name" name="Name" required><br><br>
-    
+        <input type="text" id="name" name="Name" required value="{{NameValue}}">
+        {{#if NameErrorMessage}} <small style="color: #F06048">{{NameErrorMessage}}</small>{{/if}}<br><br>
+
         <label for="maxSize">Limite de jogadores:</label>
-        <input type="number" id="maxSize" name="MaxSize"><br><br>
-    
+        <input type="number" id="maxSize" name="MaxSize" value="{{SizeValue}}">
+        {{#if SizeErrorMessage}} <small style="color: #F06048">{{SizeErrorMessage}}</small>{{/if}}<br><br>
+
         <label for="limitDateToRemoveNameAndNotPay">Data limite para remover o nome e não pagar:</label>
-        <input type="datetime-local" id="limitDateToRemoveNameAndNotPay" name="LimitDateToRemoveNameAndNotPay"><br><br>
-    
+        <input type="datetime-local" id="limitDateToRemoveNameAndNotPay" name="LimitDateToRemoveNameAndNotPay" value="{{DateValue}}">
+        {{#if DateErrorMessage}} <small style="color: #F06048">{{DateErrorMessage}}</small>{{/if}}<br><br>
+        <br><br>
         <input type="submit" value="Criar lista">
     </form>
 </div>

@@ -5,17 +5,17 @@ namespace VolleyList.WebApi.Controllers;
 
 public static class ListingController
 {
-    public static async Task<IResult> CreateListingAsync(ListingService service, [FromBody] CreateListingRequest request, CancellationToken token)
-    {
-        var response = await service.CreateListingAsync(request, token);
-
-        return response.Match(
-            Results.Ok,
-            exists => Results.BadRequest("listing already exists"),
-            empty => Results.BadRequest("Name cant be empty"),
-            past => Results.BadRequest("Limit date cant be in the past"),
-            sizeLowerThanOne => Results.BadRequest("Size date cant be lower than one"));
-    }
+    // public static async Task<IResult> CreateListingAsync(ListingService service, [FromBody] CreateListingRequest request, CancellationToken token)
+    // {
+    //     var response = await service.CreateListingAsync(request, token);
+    //
+    //     return response.Match(
+    //         Results.Ok,
+    //         exists => Results.BadRequest("listing already exists"),
+    //         empty => Results.BadRequest("Name cant be empty"),
+    //         past => Results.BadRequest("Limit date cant be in the past"),
+    //         sizeLowerThanOne => Results.BadRequest("Size date cant be lower than one"));
+    // }
 
     public static async Task<IResult> AddParticipantAsync(ListingService service, [FromRoute] string listingId, [FromBody] AddParticipantRequest request,
         CancellationToken token)

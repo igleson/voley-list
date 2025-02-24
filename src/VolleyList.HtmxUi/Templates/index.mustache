@@ -2,11 +2,23 @@
 <html lang="en">
 <head>
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", (event) => {
+            document.body.addEventListener('htmx:beforeSwap', function (evt) {
+                if (evt.detail.xhr.status === 422) {
+                    evt.detail.shouldSwap = true;
+                    evt.detail.isError = false;
+                }
+            });
+        });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Listing</title>
 </head>
-<body hx-ext="multi-swap">
-{{> create-listing-form}}
+<body>
+{{> create-listing-form . }}
 </body>
 </html>

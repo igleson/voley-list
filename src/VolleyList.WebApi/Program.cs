@@ -32,16 +32,16 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 
-app.MapPost("/listing", ListingController.CreateListingAsync)
-    .Accepts<CreateListingRequest>(contentType: "application/json")
-    .Produces<Listing>(contentType: "application/json");
-
-app.MapPost("/listing/{listingId}/add", ListingController.AddParticipantAsync)
-    .Accepts<AddParticipantRequest>(contentType: "application/json")
-    .Produces<ListingEvent>(contentType: "application/json");
-
-app.MapDelete("/listing/{listingId}/remove/{participantId}", ListingController.RemoveParticipantAsync);
-
-app.MapGet("/listing/{listingId}", ListingController.ReadListingAsync)
-    .Produces<Listing>(contentType: "application/json");
-app.Run();
+// app.MapPost("/listing", ListingController.CreateListingAsync)
+//     .Accepts<CreateListingRequest>(contentType: "application/json")
+//     .Produces<Listing>(contentType: "application/json");
+//
+// app.MapPost("/listing/{listingId}/add", ListingController.AddParticipantAsync)
+//     .Accepts<AddParticipantRequest>(contentType: "application/json")
+//     .Produces<ListingEvent>(contentType: "application/json");
+//
+// app.MapDelete("/listing/{listingId}/remove/{participantId}", ListingController.RemoveParticipantAsync);
+//
+// app.MapGet("/listing/{listingId}", ListingController.ReadListingAsync)
+//     .Produces<Listing>(contentType: "application/json");
+// app.Run();

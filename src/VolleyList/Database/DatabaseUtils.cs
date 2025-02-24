@@ -29,7 +29,7 @@ public static partial class SqliteVariables
 
 public class SupabaseConnectionProvider : IDbConnectionProvider
 {
-    private readonly NpgsqlConnectionStringBuilder _builder = new NpgsqlConnectionStringBuilder
+    private readonly NpgsqlConnectionStringBuilder _builder = new()
     {
         Host = SupabaseVariables.SupabaseHost,
         Port = SupabaseVariables.SupabasePort,

@@ -15,6 +15,8 @@ public static class Templates
 
     public static readonly HandlebarsTemplate<object, object> ComputedListPageTemplate =
         Handlebars.Compile(File.OpenText("Templates/computed-listing-page.mustache").ReadToEnd());
+    
+    public static readonly HandlebarsTemplate<object, object> CreateListingTemplating = Handlebars.Compile("{{> create-listing-form . }}");
 
     public static readonly HandlebarsTemplate<object, object> DisplayListingFormTemplate = Handlebars.Compile("{{> display-computed-list }}");
 
