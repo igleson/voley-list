@@ -9,7 +9,7 @@ RUN dotnet restore ./VolleyList.sln
 
 RUN dotnet build VolleyList.sln -c Release
         
-WORKDIR /app/VolleyList.WebApi
+WORKDIR /app/VolleyList.HtmxUi
 
 RUN dotnet publish -c Release -o /app/out 
 
