@@ -29,8 +29,7 @@ var app = builder.Build();
 
 Templates.Init();
 
-app.MapGet("/index.html", HtmxListingController.Index).DisableAntiforgery();
-
+app.MapGet("/", HtmxListingController.Index).DisableAntiforgery();
 
 app.MapPost("/listings", HtmxListingController.CreateListing).DisableAntiforgery();
 
