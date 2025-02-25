@@ -11,16 +11,18 @@
     <ul>
         {{#each MainList}}
             <li>{{Name}} {{#if IsInvitee}} - Convidado{{/if}}
-                <button hx-delete="/listings/{{@root.Listing.Id}}/players/{{Name}}" hx-swap="outerHTML" hx-target="#computed-list" hx-trigger="click">Remover</button>
+                <button hx-delete="/listings/{{@root.Listing.Id}}/players/{{Name}}" hx-swap="outerHTML" hx-target="#computed-list" hx-trigger="click">Remover
+                </button>
             </li>
         {{/each}}
     </ul>
 
-    <h2>Lista de reservar</h2>
+    <h2>Lista de reservas</h2>
     <ul>
         {{#each ReservesList}}
             <li>{{Name}} {{#if IsInvitee}} - Convidado{{/if}}
-                <button hx-delete="/listings/{{@root.Listing.Id}}/players/{{Name}}" hx-swap="outerHTML" hx-target="#computed-list" hx-trigger="click">Remover</button>
+                <button hx-delete="/listings/{{@root.Listing.Id}}/players/{{Name}}" hx-swap="outerHTML" hx-target="#computed-list" hx-trigger="click">Remover
+                </button>
             </li>
         {{/each}}
     </ul>

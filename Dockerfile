@@ -30,4 +30,4 @@ WORKDIR /app
 COPY --from=build-env /app/out .
 
 EXPOSE 8080
-ENTRYPOINT ["dotnet", "VolleyList.WebApi.dll"]
+ENTRYPOINT ["dotnet", "VolleyList.HtmxUi.dll"]

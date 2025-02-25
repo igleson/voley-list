@@ -1,11 +1,11 @@
 <div id="add-player-form">
     <form hx-post="/listings/{{Id}}/players" hx-swap="outerHTML" hx-target="#computed-list" >
-        <h2>Add player</h2>
+        <h2>Adicionar jogador</h2>
         <label for="name">Nome:</label>
-        <input type="text" id="name" name="Name" required> <br><br>
+        <input type="text" id="name" name="Name" required> <br>
         <input type="checkbox" id="isInvitee" name="isInvitee">
         <label for="isInvitee">convidado</label>
-
+        <br><br>
         <input type="submit" value="Criar lista">
     </form>
 </div>
