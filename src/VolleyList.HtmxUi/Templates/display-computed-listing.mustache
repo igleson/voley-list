@@ -1,36 +1,55 @@
 <div id="computed-list">
-    <h1>Lista</h1>
-    <p><strong>Id:</strong> {{Listing.Id}}</p>
-    <p><strong>Nome:</strong> {{Listing.Name}}</p>
-    <p><strong>Limite de jogadores:</strong> {{Listing.MaxSize}}</p>
-    <p><strong>Data limite para remover o nome e não pagar:</strong> {{Listing.LimitDateToRemoveNameAndNotPay}}</p>
+    {{#if Error}}
+        <div style="color: #F06048"> {{Error}}</div>{{/if}}
+    {{#if Computed}}
+        <h1 hx-on:*="console.log('hi h1')">Lista</h1>
+        <p><strong>Id:</strong> {{Computed.Listing.Id}}</p>
+        <p><strong>Nome:</strong> {{Computed.Listing.Name}}</p>
+        <p><strong>Limite de jogadores:</strong> {{Computed.Listing.MaxSize}}</p>
+        <p><strong>Data limite para remover o nome e não pagar:</strong> <time datetime="{{Computed.Listing.LimitDateToRemoveNameAndNotPay}}">{{Computed.Listing.LimitDateToRemoveNameAndNotPay}}</time></p>
 
-    {{> add-player Listing }}
+        {{> add-player Computed.Listing }}
 
-    <h2>Lista principal</h2>
-    <ul>
-        {{#each MainList}}
-            <li>{{Name}} {{#if IsInvitee}} - Convidado{{/if}}
-                <button hx-delete="/listings/{{@root.Listing.Id}}/players/{{Name}}" hx-swap="outerHTML" hx-target="#computed-list" hx-trigger="click">Remover
-                </button>
-            </li>
-        {{/each}}
-    </ul>
+        <h2>Lista principal</h2>
+        <ul>
+            {{#each Computed.MainList}}
+                <li>
+                    <div class="grid">
+                        <div><strong>{{Name}} {{#if IsInvitee}} - Convidado{{/if}}</strong></div>
+                        <div>
+                            
+                            <button hx-delete="/listings/{{@root.Computed.Listing.Id}}/players/{{Name}}" hx-swap="outerHTML" hx-target="#computed-list"
+                                    hx-trigger="click">
+                                Remover
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
 
-    <h2>Lista de reservas</h2>
-    <ul>
-        {{#each ReservesList}}
-            <li>{{Name}} {{#if IsInvitee}} - Convidado{{/if}}
-                <button hx-delete="/listings/{{@root.Listing.Id}}/players/{{Name}}" hx-swap="outerHTML" hx-target="#computed-list" hx-trigger="click">Remover
-                </button>
-            </li>
-        {{/each}}
-    </ul>
+        <h2>Lista de reservas</h2>
+        <ul>
+            {{#each Computed.ReservesList}}
+                <li>
+                    <div class="grid">
+                        <div><strong>{{Name}} {{#if IsInvitee}} - Convidado{{/if}}</strong></div>
+                        <div>
+                            <button hx-delete="/listings/{{@root.Computed.Listing.Id}}/players/{{Name}}" hx-swap="outerHTML" hx-target="#computed-list"
+                                    hx-trigger="click">
+                                Remover
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
 
-    <h2>Pagantes</h2>
-    <ul>
-        {{#each PayingParticipants}}
-            <li>{{this.Name}} ({{#if this.IsInvitee}}Convidado{{/if}})</li>
-        {{/each}}
-    </ul>
+        <h2>Pagantes</h2>
+        <ul>
+            {{#each Computed.PayingParticipants}}
+            <li><strong>{{Name}} {{#if IsInvitee}} - Convidado{{/if}}</strong>
+            {{/each}}
+        </ul>
+    {{/if}}
 </div>

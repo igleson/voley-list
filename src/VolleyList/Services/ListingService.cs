@@ -179,14 +179,3 @@ public class ListingService(Storage storage, ListingValidator validator)
 }
 
 public readonly record struct AddParticipantRequest(string Name, bool IsInvitee);
-
-public readonly record struct CreateListingRequest(string Name, int? MaxSize, DateTime LimitDateToRemoveNameAndNotPay)
-{
-    public static implicit operator Listing(CreateListingRequest request) => new()
-    {
-        Id = Guid.NewGuid().ToString(),
-        Name = request.Name,
-        MaxSize = request.MaxSize,
-        LimitDateToRemoveNameAndNotPay = request.LimitDateToRemoveNameAndNotPay
-    };
-}

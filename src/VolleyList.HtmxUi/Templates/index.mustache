@@ -5,12 +5,34 @@
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", (event) => {
             document.body.addEventListener('htmx:beforeSwap', function (evt) {
-                if (evt.detail.xhr.status === 422) {
+                if (evt.detail.xhr.status === 422 || evt.detail.xhr.status === 404) {
                     evt.detail.shouldSwap = true;
                     evt.detail.isError = false;
                 }
             });
+            
+            document.body.addEventListener("listing-visited", function(evt){
+                let stored  = localStorage.getItem("accessed-listings");
+                let listings = JSON.parse(stored);
+                if(!listings) listings = [];
+                listings.push({id: evt.detail.id, name: evt.detail.name});
+                console.log(listings);
+                localStorage.setItem("accessed-listings", JSON.stringify(listings));
+            });
+
+            let stored  = localStorage.getItem("accessed-listings");
+            let listings = JSON.parse(stored);
+            if(!listings) listings = [];
+            
+            const list = listings.map((listing) => `<li> <a href="/listings/${listing.id}"> ${listing.name} </li>`).join("");
+            
+            
+            document.getElementById('recently-accessed').innerHTML = `
+            <ul>
+                ${list}
+            </ul>`;
         });
+
     </script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
@@ -18,8 +40,76 @@
         body {
             padding: 0 75px; /* Add padding to the left and right */
         }
-        #create-list-form {
-            margin: 0 auto; /* Center the form horizontally */
+
+        :root {
+            --pico-font-family-sans-serif: Inter, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, Helvetica, Arial, "Helvetica Neue", sans-serif, var(--pico-font-family-emoji);
+            --pico-font-size: 87.5%;
+            /* Original: 100% */
+            --pico-line-height: 1.25;
+            /* Original: 1.5 */
+            --pico-form-element-spacing-vertical: 0.5rem;
+            /* Original: 1rem */
+            --pico-form-element-spacing-horizontal: 1.0rem;
+            /* Original: 1.25rem */
+            --pico-border-radius: 0.375rem;
+            /* Original: 0.25rem */
+        }
+
+        @media (min-width: 576px) {
+            :root {
+                --pico-font-size: 87.5%;
+                /* Original: 106.25% */
+            }
+        }
+
+        @media (min-width: 768px) {
+            :root {
+                --pico-font-size: 87.5%;
+                /* Original: 112.5% */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            :root {
+                --pico-font-size: 87.5%;
+                /* Original: 118.75% */
+            }
+        }
+
+        @media (min-width: 1280px) {
+            :root {
+                --pico-font-size: 87.5%;
+                /* Original: 125% */
+            }
+        }
+
+        @media (min-width: 1536px) {
+            :root {
+                --pico-font-size: 87.5%;
+                /* Original: 131.25% */
+            }
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            --pico-font-weight: 600;
+            /* Original: 700 */
+        }
+
+        article {
+            border: 1px solid var(--pico-muted-border-color);
+            /* Original doesn't have a border */
+            border-radius: calc(var(--pico-border-radius) * 2);
+            /* Original: var(--pico-border-radius) */
+        }
+
+        article > footer {
+            border-radius: calc(var(--pico-border-radius) * 2);
+            /* Original: var(--pico-border-radius) */
         }
     </style>
 
@@ -28,6 +118,17 @@
     <title>Create Listing</title>
 </head>
 <body>
-{{> create-listing-form . }}
+
+<div class="grid">
+    <div>
+        <strong>Listas recentemente acessadas: </strong> <br><br>
+        
+        <div id='recently-accessed'></div>
+    </div>
+
+
+    <div>{{> create-listing-form . }}</div>    
+</div>
+
 </body>
 </html>

@@ -1,11 +1,13 @@
 namespace VolleyList.Database;
 
-public record struct ParticipantAlreadyInserted
+public interface IEventListingError;
+
+public record struct ParticipantAlreadyInserted: IEventListingError
 {
     public static ParticipantAlreadyInserted Instance { get; } = new();
 }
 
-public record struct ParticipantAlreadyRemoved
+public record struct ParticipantAlreadyRemoved: IEventListingError
 {
     public static ParticipantAlreadyRemoved Instance { get; } = new();
 }
@@ -13,19 +15,4 @@ public record struct ParticipantAlreadyRemoved
 public record struct ListingAlreadyExists
 {
     public static ListingAlreadyExists Instance { get; } = new();
-}
-
-public record struct ListingSizeHasToBeHigherThanOne
-{
-    public static ListingSizeHasToBeHigherThanOne Instance { get; } = new();
-}
-
-public record struct ListingNameCantBeEmpty
-{
-    public static ListingNameCantBeEmpty Instance { get; } = new();
-}
-
-public record struct LimitDateToRemoveNameAndNotPayCantBeInThePast
-{
-    public static LimitDateToRemoveNameAndNotPayCantBeInThePast Instance { get; } = new();
 }

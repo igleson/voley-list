@@ -1,6 +1,4 @@
-using System.Reflection;
 using Dapper;
-using FluentValidation;
 using HtmxUi;
 using HtmxUi.Controllers;
 using VolleyList.Database;
@@ -28,6 +26,8 @@ builder.Services.AddSingleton<ListingService>();
 var app = builder.Build();
 
 Templates.Init();
+
+app.MapStaticAssets();
 
 app.MapGet("/", HtmxListingController.Index).DisableAntiforgery();
 

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolleyList.WebApi", "VolleyList.WebApi\VolleyList.WebApi.csproj", "{1265A30F-EB8D-44F5-AD32-8D7EEFB8746E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolleyList", "VolleyList\VolleyList.csproj", "{14574D6D-F6CC-4DA0-856F-E12D8CB0B96D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolleyList.HtmxUi", "VolleyList.HtmxUi\VolleyList.HtmxUi.csproj", "{68A1DDC4-B42B-4694-A79C-0F0D5AEED697}"
@@ -18,10 +16,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1265A30F-EB8D-44F5-AD32-8D7EEFB8746E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1265A30F-EB8D-44F5-AD32-8D7EEFB8746E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1265A30F-EB8D-44F5-AD32-8D7EEFB8746E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1265A30F-EB8D-44F5-AD32-8D7EEFB8746E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{14574D6D-F6CC-4DA0-856F-E12D8CB0B96D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{14574D6D-F6CC-4DA0-856F-E12D8CB0B96D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14574D6D-F6CC-4DA0-856F-E12D8CB0B96D}.Release|Any CPU.ActiveCfg = Release|Any CPU
